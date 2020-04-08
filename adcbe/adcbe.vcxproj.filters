@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Quelldateien">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Headerdateien">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Ressourcendateien">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Bancho">
+      <UniqueIdentifier>{366212b3-cc23-4fce-8d8e-4b9a51551986}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Web">
+      <UniqueIdentifier>{211e959d-390f-4941-8f4d-957c43f64324}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Bancho\Events">
+      <UniqueIdentifier>{f215fc01-bef0-4564-9b9c-a2013902af00}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Objects">
+      <UniqueIdentifier>{3e27a4ac-3986-4acf-99d9-a7261b0fbcd9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Bancho\Packets">
+      <UniqueIdentifier>{b767b0d7-39f9-447c-bc08-dad24bd67af6}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="adcbe.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="Request.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="Response.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="Server.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="Objects\Player.cpp">
+      <Filter>Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Objects\Channel.cpp">
+      <Filter>Objects</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Request.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="Header.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="Response.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="Server.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="Bancho\BanchoServer.h">
+      <Filter>Bancho</Filter>
+    </ClInclude>
+    <ClInclude Include="Web\WebServer.h">
+      <Filter>Web</Filter>
+    </ClInclude>
+    <ClInclude Include="Bancho\Events\LoginEvent.h">
+      <Filter>Bancho\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="Bancho\Global.h">
+      <Filter>Bancho</Filter>
+    </ClInclude>
+    <ClInclude Include="Objects\Player.h">
+      <Filter>Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Objects\Channel.h">
+      <Filter>Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Bancho\Packets\Packets.h">
+      <Filter>Bancho\Packets</Filter>
+    </ClInclude>
+    <ClInclude Include="Bancho\Packets\Packet.h">
+      <Filter>Bancho\Packets</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
