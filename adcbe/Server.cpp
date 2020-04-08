@@ -82,7 +82,7 @@ int Server::start_server(const unsigned short& port)
                     if (hstart == 1) break;
                 }
 
-                if (request.Method != "GET")
+                if (request.Method != "GET") {
                     try {
                         request.ContentLength = std::stoll(request.GetHeader("Content-Length"));
                     }
@@ -90,7 +90,15 @@ int Server::start_server(const unsigned short& port)
                         request.ContentLength = 0;
                     }
 
-                request.payload_start = payload_start + 4;
+                    if (request.ContentLength) {
+                        payload_start += 4;
+                        request.Body.resize(request.ContentLength);
+                        memcpy(&request.Body[0], payload_start, request.ContentLength);
+                    }
+
+                }
+
+                free(buffer);
 
                 auto response = Response(csock);
                 processRequest(request, response);

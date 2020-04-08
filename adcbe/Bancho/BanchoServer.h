@@ -32,7 +32,24 @@ class BanchoServer : public Server {
                 return;
             }
 
-            std::cout << p->Username << std::endl;
+            for (long long i = 0; i + 6 < req.ContentLength; ) {
+                auto Id = *(short*)(&req.Body[i]);
+                i += 3;
+                auto Length = *(int*)(&req.Body[i]);
+                i += 4;
+
+                std::vector<unsigned char> Data;
+                if (Length) {
+                    Data.resize(Length);
+                    memcpy(&Data[0], &req.Body[i], Length);
+                    i += Length;
+                }
+
+                switch (Id) {
+                default:
+                    std::cout << "Unhandled Event " << Id << " L" << Data.size() << std::endl;
+                }
+            }
         }
 
         ROUTE_GET(/) {
