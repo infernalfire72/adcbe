@@ -1,63 +1,65 @@
 #ifndef ADCBE__BANCHO__GLOBAL__
 #define ADCBE__BANCHO__GLOBAL__
 
+#include <ctime>
 #include <mutex>
+#include <shared_mutex>
 #include <vector>
 #include "../Objects/Channel.h"
 #include "../Objects/Player.h"
 
-#ifdef _WIN32
 inline std::vector<Player*> Players;
 inline std::vector<Channel*> Channels;
-#elif defined(__linux__) || defined(__CYGWIN__)
-std::vector<Player*> Players;
-std::vector<Channel*> Channels;
-#endif
 
-static std::mutex playerMutex;
-static std::mutex channelMutex;
+std::shared_mutex playerMutex;
+std::shared_mutex channelMutex;
 
 class Global {
 public:
+	static void CheckPlayerTimeout() {
+		std::lock_guard<std::shared_mutex> lock(playerMutex);
+
+		for (int i = 0; i < Players.size(); i++) {
+			if (std::time(nullptr) - Players[i]->Heartbeat > 50000) {
+				Players.erase(Players.begin() + i);
+				i--;
+			}
+		}
+	}
+
 	static void AddPlayer(Player*& p) {
-		playerMutex.lock();
+		std::lock_guard<std::shared_mutex> lock(playerMutex);
 		Players.emplace_back(p);
-		playerMutex.unlock();
 	}
 
 	static Player* GetPlayer(const unsigned long long& token) {
-		playerMutex.lock();
+		std::shared_lock<std::shared_mutex> lock(playerMutex);
 		for (auto& i : Players) {
 			if (i->Token == token) {
-				playerMutex.unlock();
 				return i;
 			}
 		}
-		playerMutex.unlock();
 		return nullptr;
 	}
 
 	static Player* GetPlayer(const std::string& name) {
-		playerMutex.lock();
+		std::shared_lock<std::shared_mutex> lock(playerMutex);
 		for (auto& i : Players) {
 			if (i->Username == name) {
-				playerMutex.unlock();
 				return i;
 			}
 		}
-		playerMutex.unlock();
 		return nullptr;
 	}
 
 	static Player* GetPlayer(const int& id) {
-		playerMutex.lock();
+		std::shared_lock<std::shared_mutex> lock(playerMutex);
 		for (auto& i : Players) {
 			if (i->Id == id) {
-				playerMutex.unlock();
 				return i;
 			}
 		}
-		playerMutex.unlock();
+
 		return nullptr;
 	}
 

@@ -1,5 +1,8 @@
 #pragma once
 
+#include <thread>
+#define THREADS 4
+
 #include "Request.h"
 #include "Response.h"
 

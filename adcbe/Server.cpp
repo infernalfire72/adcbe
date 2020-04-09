@@ -19,7 +19,6 @@
 #endif
 
 #define PAYLOAD_SIZE 2048
-#define THREADS 4
 
 int Server::start_server(const unsigned short& port)
 {
@@ -49,7 +48,6 @@ int Server::start_server(const unsigned short& port)
     }
 
     std::cout << "Started Server on :" << port << "!\n";
-
     std::thread threads[THREADS];
     for (auto& i : threads) {
         i = std::thread(
@@ -95,7 +93,7 @@ int Server::start_server(const unsigned short& port)
 
                 if (request.Method != "GET") {
                     try {
-                        request.ContentLength = std::stoll(request.GetHeader("Content-Length"));
+                        request.ContentLength = (size_t)std::stoll(request.GetHeader("Content-Length"));
                     }
                     catch (const std::invalid_argument) {
                         request.ContentLength = 0;
@@ -106,7 +104,6 @@ int Server::start_server(const unsigned short& port)
                         request.Body.resize(request.ContentLength);
                         memcpy(&request.Body[0], payload_start, request.ContentLength);
                     }
-
                 }
 
                 free(buffer);
@@ -118,9 +115,10 @@ int Server::start_server(const unsigned short& port)
             }
         }
         );
-    }
 
-    for (auto& i : threads) {
-        i.join();
+        for (auto& i : threads) {
+            i.join();
+        }
     }
+    return 0;
 }

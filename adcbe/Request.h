@@ -10,7 +10,7 @@ public:
 	std::string URI;
 	std::string Method;
 	Header Headers[16];
-	unsigned long long ContentLength;
+	size_t ContentLength;
 	std::vector<unsigned char> Body;
 
 	std::string GetHeader(const std::string& key) const;

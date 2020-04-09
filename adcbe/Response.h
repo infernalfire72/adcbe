@@ -35,6 +35,12 @@ public:
 		memcpy(&data[data.size() - sizeof(T)], (void*)&value, sizeof(T));
 	}
 
+	template <typename T>
+	Response& operator << (const T& value) {
+		Write(value);
+		return *this;
+	}
+
 	void SetHeader(const std::string& Key, const std::string& Value);
 private:
 	Header Headers[16];

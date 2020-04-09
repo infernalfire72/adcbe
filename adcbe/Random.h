@@ -1,5 +1,6 @@
 #pragma once
 
+// https://stackoverflow.com/a/22883968
 #include <iostream>
 #include <random>
 #include <limits>

@@ -14,7 +14,7 @@ class WebServer : public Server {
 		}
 
 		ROUTE_GET(/) {
-
+			res << "Web Front";
 		}
 
 		ROUTE_END

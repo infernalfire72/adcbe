@@ -9,6 +9,7 @@
 
 #include "Events/LoginEvent.h"
 #include "Packets/Packets.h"
+#include <ctime>
 
 class BanchoServer : public Server {
     void processRequest(const Request& req, Response& res) override {
@@ -32,7 +33,7 @@ class BanchoServer : public Server {
                 return;
             }
 
-            for (long long i = 0; i + 6 < req.ContentLength; ) {
+            for (unsigned int i = 0; (i + 6) < req.ContentLength; ) {
                 auto Id = *(short*)(&req.Body[i]);
                 i += 3;
                 auto Length = *(int*)(&req.Body[i]);
@@ -46,6 +47,11 @@ class BanchoServer : public Server {
                 }
 
                 switch (Id) {
+                case 0:
+                    break;
+                    [[likely]] case 4:
+                        p->Heartbeat = std::time(nullptr);
+                    break;
                 default:
                     std::cout << "Unhandled Event " << Id << " L" << Data.size() << std::endl;
                 }
@@ -53,7 +59,7 @@ class BanchoServer : public Server {
         }
 
         ROUTE_GET(/) {
-
+            res << "Bancho Front" << "Write something here";
         }
 
         ROUTE_END
