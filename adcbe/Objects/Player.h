@@ -26,14 +26,7 @@ public:
 	}
 
 	void AddPacket(const Packet& p);
-	void WriteTo(Response& r) {
-		queueMutex.lock();
-
-		r.Write(Queue);
-		Queue.resize(0);
-
-		queueMutex.unlock();
-	}
+	void WriteTo(Response& r);
 private:
 	std::mutex queueMutex;
 };

@@ -3,6 +3,8 @@
 #include <cstring>
 #include <ctime>
 #include "../Random.h"
+#include "../Bancho/Global.h"
+#include "../Bancho/Packets/Packets.h"
 
 Player::Player()
 {
@@ -22,7 +24,7 @@ Player::Player(const int& id, const std::string& name)
 
 Player::~Player()
 {
-
+	Global::Broadcast(Packets::Logout(Id));
 }
 
 void Player::AddPacket(const Packet& p)
@@ -35,6 +37,16 @@ void Player::AddPacket(const Packet& p)
 	memcpy(&Queue[pos], &p.Id, sizeof(short));
 	memcpy(&Queue[pos + 3], &pSize, sizeof(int));
 	memcpy(&Queue[pos + 7], &p.Data[0], pSize);
+
+	queueMutex.unlock();
+}
+
+void Player::WriteTo(Response& r)
+{
+	queueMutex.lock();
+
+	r.Write(Queue);
+	Queue.resize(0);
 
 	queueMutex.unlock();
 }

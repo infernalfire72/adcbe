@@ -69,8 +69,15 @@ public:
 		Channels.emplace_back(c);
 	}
 
+	static void Broadcast(const Packet& p) {
+		for (auto& i : Players) {
+			*i << p;
+		}
+	}
+
 	static void SetupChannels() {
-		
+		AddChannel("#osu", "Main osu! Channel");
+		AddChannel("#announce", "Announcements Channel");
 	}
 };
 #endif
