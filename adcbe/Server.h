@@ -3,7 +3,7 @@
 #include "Request.h"
 #include "Response.h"
 
-#ifdef __linux__
+#if defined(__linux__) || defined(__CYGWIN__)
 #include <unistd.h>
 #include "Linux.h"
 #endif

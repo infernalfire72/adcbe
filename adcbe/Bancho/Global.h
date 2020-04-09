@@ -1,4 +1,4 @@
-#ifdef __linux__ // actual brain mode
+#if  defined(__linux__) || defined(__CYGWIN__) // actual brain mode
 #include <vector>
 #include "../Objects/Channel.h"
 #include "../Objects/Player.h"
@@ -14,7 +14,7 @@
 
 inline std::vector<Player*> Players;
 inline std::vector<Channel*> Channels;
-#elif defined(__linux__)
+#elif defined(__linux__) || defined(__CYGWIN__)
 std::vector<Player*> Players;
 std::vector<Channel*> Channels;
 #endif
