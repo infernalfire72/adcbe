@@ -6,13 +6,9 @@
 
 #include "../Packets/Packets.h"
 
-#include "../../Random.h"
-
 void LoginEvent(const Request& req, Response& res) {
 
 	Player *p = new Player(1337, "Nexus");
-
-    p->Token = Random::Long();
 
 	res.SetHeader("cho-token", std::to_string(p->Token));
 	

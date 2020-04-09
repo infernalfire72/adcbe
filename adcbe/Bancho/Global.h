@@ -11,15 +11,15 @@
 inline std::vector<Player*> Players;
 inline std::vector<Channel*> Channels;
 
-std::shared_mutex playerMutex;
-std::shared_mutex channelMutex;
+static std::shared_mutex playerMutex;
+static std::shared_mutex channelMutex;
 
 class Global {
 public:
 	static void CheckPlayerTimeout() {
 		std::lock_guard<std::shared_mutex> lock(playerMutex);
 
-		for (int i = 0; i < Players.size(); i++) {
+		for (size_t i = 0; i < Players.size(); i++) {
 			if (std::time(nullptr) - Players[i]->Heartbeat > 50000) {
 				Players.erase(Players.begin() + i);
 				i--;
