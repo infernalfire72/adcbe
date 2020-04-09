@@ -3,6 +3,11 @@
 #include "Request.h"
 #include "Response.h"
 
+#ifdef __linux__
+#include <unistd.h>
+#include "Linux.h"
+#endif
+
 #define ROUTE_START if(0){}
 #define ROUTE(url, method) else if (#url == req.URI && #method == req.Method)
 #define ROUTE_GET(url) ROUTE(url, GET)

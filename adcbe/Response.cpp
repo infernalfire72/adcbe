@@ -1,5 +1,13 @@
+#include <sstream>
+
 #include "Response.h"
 #include "Bancho/Packets/Packet.h"
+
+#include <cstring>
+#ifdef __linux__
+#include <unistd.h>
+#include "Linux.h"
+#endif
 
 Response::Response(SOCKET cSock)
 {

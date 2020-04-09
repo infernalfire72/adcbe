@@ -165,6 +165,7 @@
     <ClInclude Include="Bancho\Packets\Packet.h" />
     <ClInclude Include="Bancho\Packets\Packets.h" />
     <ClInclude Include="Header.h" />
+    <ClInclude Include="Linux.h" />
     <ClInclude Include="Objects\Channel.h" />
     <ClInclude Include="Objects\Player.h" />
     <ClInclude Include="Request.h" />

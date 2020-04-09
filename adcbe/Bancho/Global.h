@@ -1,11 +1,23 @@
-#pragma once
+#ifdef __linux__ // actual brain mode
+#include <vector>
+#include "../Objects/Channel.h"
+#include "../Objects/Player.h"
+#endif
 
+#ifndef ADCBE__BANCHO__GLOBAL__
+#define ADCBE__BANCHO__GLOBAL__
+
+#ifdef _WIN32
 #include <vector>
 #include "../Objects/Channel.h"
 #include "../Objects/Player.h"
 
 inline std::vector<Player*> Players;
 inline std::vector<Channel*> Channels;
+#elif defined(__linux__)
+std::vector<Player*> Players;
+std::vector<Channel*> Channels;
+#endif
 
 class Global {
 public:
@@ -17,3 +29,4 @@ public:
 		return nullptr;
 	}
 };
+#endif

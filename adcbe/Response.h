@@ -5,7 +5,13 @@
 #include <vector>
 #include <array>
 #include "Header.h"
+
+#ifdef _WIN32
 #include <WinSock2.h>
+#elif defined(__linux__) || defined(__CYGWIN__)
+#include "linux.h"
+#endif
+
 #include "Bancho/Packets/Packet.h"
 
 class Response {

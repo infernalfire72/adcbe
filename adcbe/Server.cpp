@@ -2,32 +2,43 @@
 #include <iostream>
 #include <thread>
 #include <mutex>
-#include <WinSock2.h>
 #include <sstream>
 #include <string>
+#include <cstring>
 #include "Request.h"
 #include "Response.h"
 
+#ifdef _WIN32
+#include <WinSock2.h>
+#elif defined(__linux__) || defined(__CYGWIN__)
+#include "Linux.h"
+#include <unistd.h>
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <netinet/in.h>
+#endif
+
 #define PAYLOAD_SIZE 2048
+#define THREADS 4
 
 int Server::start_server(const unsigned short& port)
 {
-    std::mutex tMutex;
-
+#ifdef _WIN32
     WSADATA wsa;
     int wserr = WSAStartup(2, &wsa);
     if (wserr != 0) {
         printf("Failed to start WSocket\nError Code: %d\n", wserr);
         return 1;
     }
-
+#endif
     sockaddr_in serv;
-    memset(&serv, 0, sizeof(SOCKADDR_IN));
+    memset(&serv, 0, sizeof(sockaddr_in));
     serv.sin_family = AF_INET;
     serv.sin_addr.s_addr = INADDR_ANY;
     serv.sin_port = htons(port);
+
     SOCKET sock = socket(AF_INET, SOCK_STREAM, 0);
-    if (bind(sock, (SOCKADDR*)&serv, sizeof(SOCKADDR_IN)) == SOCKET_ERROR) {
+    if (bind(sock, (sockaddr*)&serv, sizeof(sockaddr_in)) == SOCKET_ERROR) {
         std::cerr << "Couldn't bind to :" << port << std::endl;
         return 1;
     }
@@ -39,14 +50,14 @@ int Server::start_server(const unsigned short& port)
 
     std::cout << "Started Server on :" << port << "!\n";
 
-    std::thread threads[4];
+    std::thread threads[THREADS];
     for (auto& i : threads) {
-        i = std::thread{
+        i = std::thread(
         [&] {
             while (1) {
                 SOCKET csock = accept(sock, NULL, NULL);
                 if (csock == INVALID_SOCKET) {
-                    std::cerr << "Invalid Socket Error Code: " << WSAGetLastError() << std::endl;
+                    std::cerr << "Invalid Socket" << std::endl;
                     continue;
                 }
 
@@ -106,7 +117,7 @@ int Server::start_server(const unsigned short& port)
                 closesocket(csock);
             }
         }
-        };
+        );
     }
 
     for (auto& i : threads) {
