@@ -168,6 +168,7 @@
     <ClInclude Include="Linux.h" />
     <ClInclude Include="Objects\Channel.h" />
     <ClInclude Include="Objects\Player.h" />
+    <ClInclude Include="Random.h" />
     <ClInclude Include="Request.h" />
     <ClInclude Include="Response.h" />
     <ClInclude Include="Server.h" />

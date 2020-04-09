@@ -6,7 +6,7 @@ class Player {
 public:
 	int Id;
 	std::string Username;
-	std::string Token;
+	unsigned long long Token;
 
 	Player();
 	Player(const int& id, const std::string& name);
