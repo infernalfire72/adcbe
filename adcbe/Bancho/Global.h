@@ -21,6 +21,7 @@ public:
 
 		for (size_t i = 0; i < Players.size(); i++) {
 			if (std::time(nullptr) - Players[i]->Heartbeat > 50000) {
+				delete Players[i];
 				Players.erase(Players.begin() + i);
 				i--;
 			}
@@ -63,5 +64,13 @@ public:
 		return nullptr;
 	}
 
+	static void AddChannel(const std::string& Name, const std::string& Topic) {
+		auto c = new Channel(Name, Topic);
+		Channels.emplace_back(c);
+	}
+
+	static void SetupChannels() {
+		
+	}
 };
 #endif

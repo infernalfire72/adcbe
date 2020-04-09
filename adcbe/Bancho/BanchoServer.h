@@ -56,6 +56,8 @@ class BanchoServer : public Server {
                     std::cout << "Unhandled Event " << Id << " L" << Data.size() << std::endl;
                 }
             }
+            
+            p->WriteTo(res);
         }
 
         ROUTE_GET(/) {
